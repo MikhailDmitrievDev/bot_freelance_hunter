@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  bot_database:
+    image: postgres:15.3
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "54322:5432"
+    volumes:
+    - "bot_data:/var/lib/postgresql/data"
+  mongo:
+      ports:
+          - '27017:27017'
+      container_name: fj-bot-mongo
+      restart: always
+      logging:
+          options:
+              max-size: 1g
+      env_file:
+        - .env
+      image: mongo
+  
+volumes:
+  bot_data:

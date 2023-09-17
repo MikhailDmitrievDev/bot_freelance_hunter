@@ -1,0 +1,7 @@
+aiogram
+python-dotenv
+sqlalchemy
+alembic
+aiohttp
+beautifulsoup4
+motor
