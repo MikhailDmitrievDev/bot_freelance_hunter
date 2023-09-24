@@ -9,7 +9,6 @@ from config import (POSTGRES_DB, POSTGRES_PASSWORD,
 engine = create_engine(
     f"postgresql+psycopg2://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}")
 client = AsyncIOMotorClient(uri, server_api=ServerApi('1'))
-MONGO_URL = "<connection string>"
 
 try:
       client.admin.command('ping')
