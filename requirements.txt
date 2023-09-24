@@ -28,6 +28,8 @@ certifi==2023.7.22
     # via aiogram
 charset-normalizer==3.2.0
     # via aiohttp
+colorama==0.4.6
+    # via loguru
 dnspython==2.4.2
     # via pymongo
 frozenlist==1.4.0
@@ -38,6 +40,8 @@ greenlet==2.0.2
     # via sqlalchemy
 idna==3.4
     # via yarl
+loguru==0.7.2
+    # via -r requirements.in
 magic-filter==1.0.11
     # via aiogram
 mako==1.2.4
@@ -71,5 +75,7 @@ typing-extensions==4.7.1
     #   pydantic
     #   pydantic-core
     #   sqlalchemy
+win32-setctime==1.1.0
+    # via loguru
 yarl==1.9.2
     # via aiohttp

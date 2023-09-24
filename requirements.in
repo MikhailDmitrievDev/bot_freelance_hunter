@@ -5,3 +5,4 @@ alembic
 aiohttp
 beautifulsoup4
 motor
+loguru
