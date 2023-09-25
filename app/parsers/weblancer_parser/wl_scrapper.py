@@ -28,11 +28,9 @@ class AuthWeblance:
 
     @classmethod
     async def get_hash_link_key(cls):
-        cookies = CookiesManager.get_cookies()
-        response = await get_request("https://weblancer.net", cookies={}, headers={})
+        response = await get_request("https://weblancer.net", cookies=CookiesManager.get_cookies(), headers={})
         soup = BeautifulSoup(response.get("body"), "html.parser")
-        script_element = soup.find('script', id='__NEXT_DATA__')
-        json_data = json.loads(script_element.string)
+        json_data = json.loads(soup.find('script', id='__NEXT_DATA__'))
         return json_data['buildId']
 
     @classmethod
@@ -44,12 +42,10 @@ class AuthWeblance:
 
     @classmethod
     async def get_profile(cls):
-        cookies = get_cookies()
 
         HASH_KEY = await cls.get_hash_link_key()
         prof_url = f"{WEBLANCER_URL}{REQUEST_WL_PREFIX}{HASH_KEY}/users/guest_1694859481282.json?login=guest_1694859481282"
-        response = await get_request(prof_url, headers={}, cookies=cookies)
-        print(response.get("status_code"))
+        response = await get_request(prof_url, headers={}, cookies=CookiesManager.get_cookies())
         if response.get("status_code") == 200:
             profile = ResponseTemplate(**json.loads(response.get("body")))
             return profile

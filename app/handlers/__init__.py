@@ -1,5 +1,3 @@
-from loguru import logger
+from .handler import router
 
-from .errors import retry_after
-
-logger.info("Handlers are successfully configured")
+__all__ = ["router"]
