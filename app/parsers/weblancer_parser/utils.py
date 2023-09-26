@@ -15,7 +15,7 @@ async def post_request(url: str, headers: Optional[Dict[str, Any]], body: Dict[s
             return {'status_code': status_code, 'body': body, 'cookies': cookies}
 
 
-async def get_request(url: str, headers: Optional[Dict[str, Any]], cookies: Optional[Dict[str, Any]]):
+async def get_request(url: str, headers: Optional[Dict[str, Any]], cookies: Optional[Dict[str, Any]] = None):
     async with ClientSession() as session:
         async with session.get(url, headers=headers, cookies=cookies) as response:
             status_code = response.status

@@ -6,7 +6,7 @@ from aiogram.enums.parse_mode import ParseMode
 from aiogram.fsm.storage.memory import MemoryStorage
 
 import config
-from handlers import router as main_handler
+from handlers import main_handler, weblancer_handler
 
 
 async def main():
@@ -14,6 +14,7 @@ async def main():
     dp = Dispatcher(storage=MemoryStorage())
 
     dp.include_router(main_handler)
+    dp.include_router(weblancer_handler)
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 

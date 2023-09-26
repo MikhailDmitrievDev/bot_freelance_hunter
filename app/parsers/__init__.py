@@ -1,6 +1,6 @@
 
-from weblancer_parser.wl_scrapper import AuthWeblance
+from . import weblancer_parser
 
 __all__ = [
-    "AuthWeblance",
+    "weblancer_parser"
 ]

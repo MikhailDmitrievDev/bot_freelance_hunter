@@ -15,6 +15,13 @@ from config import (
     REQUEST_WL_PREFIX
 )
 
+class Url:
+    @classmethod
+    async def get_hash_link_key(cls):
+        response = await get_request("https://weblancer.net", headers={})
+        soup = BeautifulSoup(response.get("body"), "html.parser")
+        json_data = json.loads(soup.find('script', id='__NEXT_DATA__').text)
+        return json_data['buildId']
 
 class AuthWeblance:
     body = {
@@ -25,13 +32,6 @@ class AuthWeblance:
         "store_login": WL_STORE_LOGIN,
     }
     url = WEBLANCER_URL + AUTH_WEBLANCER
-
-    @classmethod
-    async def get_hash_link_key(cls):
-        response = await get_request("https://weblancer.net", cookies=CookiesManager.get_cookies(), headers={})
-        soup = BeautifulSoup(response.get("body"), "html.parser")
-        json_data = json.loads(soup.find('script', id='__NEXT_DATA__'))
-        return json_data['buildId']
 
     @classmethod
     async def make_auth(cls):
@@ -50,3 +50,15 @@ class AuthWeblance:
             profile = ResponseTemplate(**json.loads(response.get("body")))
             return profile
         return "Пользователь не авторизован"
+
+
+class WeblancerScrapper:
+    
+    @classmethod
+    async def get_categories(cls):
+        hash_key = await Url.get_hash_link_key()
+        url = f"{WEBLANCER_URL}{REQUEST_WL_PREFIX}{hash_key}/freelance.json"
+        response = await get_request(url, headers={})
+        if response.get("status_code") == 200:
+            categories = json.loads(response.get("body"))
+            return json.loads(response.get("body")).get("pageProps").get("categoryList")
